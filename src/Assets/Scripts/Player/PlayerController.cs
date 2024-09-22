@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    public GameObject bulletPrefab;
+
     private PlayerModel playerModel;
     private PlayerView playerView;
     private int moveSpeed = 1;
 
-    public float getKeyIntervalTime;
-    float getKeyTime;
+    public float getKeyIntervalTime, getFireKeyIntervalTime;
+    float getKeyTime, getFireKeyTime;
 
     void Start()
     {
         playerModel = new PlayerModel();
         playerView = GetComponent<PlayerView>();
         getKeyTime = Time.time;
+        getFireKeyTime = Time.time;
     }
 
     void Update()
@@ -47,15 +51,12 @@ public class PlayerController : MonoBehaviour
             getKeyTime = Time.time;
         }
 
-        //if (Time.time > (getKeyLRTime + getKeyLRIntervalTime))
-        //{
-            
-        //    getKeyLRTime = Time.time;
-        //}
-        //float x = Input.GetAxisRaw("Horizontal");
-        //float y = Input.GetAxisRaw("Vertical");
+        if ((Input.GetKeyDown(KeyCode.Space)) && (Time.time > (getFireKeyTime + getFireKeyIntervalTime)))
+        {
+            FireBullet();
+            getFireKeyTime = Time.time;
+        }
 
-        //playerModel.Position += new Vector2Int((int)x, (int)y);
      
     }
 
@@ -82,5 +83,17 @@ public class PlayerController : MonoBehaviour
     void UpdateView()
     {
         playerView.UpdatePosition(playerModel.Position);
+    }
+
+    void FireBullet()
+    {
+        // 弾を発射する位置と速度
+        Vector2Int bulletPosition = playerModel.Position + new Vector2Int(0, 1); // プレイヤーの前方から発射
+        Vector2Int bulletVelocity = new Vector2Int(0, 1);  // 弾の方向（上向き）
+
+        // 弾のプレハブをインスタンス化し、コントローラーを初期化
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        BulletController bulletController = bullet.GetComponent<BulletController>();
+        bulletController.Initialize(bulletPosition, bulletVelocity);
     }
 }

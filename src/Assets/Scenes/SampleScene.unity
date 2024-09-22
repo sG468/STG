@@ -215,15 +215,7 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5191465628342990201, guid: 2cd4ec50468ec8b46825732e2c006f8c, type: 3}
-      propertyPath: getKeyIntervalTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5191465628342990201, guid: 2cd4ec50468ec8b46825732e2c006f8c, type: 3}
-      propertyPath: getKeyLRIntervalTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5191465628342990201, guid: 2cd4ec50468ec8b46825732e2c006f8c, type: 3}
-      propertyPath: getKeyUDIntervalTime
+      propertyPath: getFireKeyIntervalTime
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5643861126095558484, guid: 2cd4ec50468ec8b46825732e2c006f8c, type: 3}
