@@ -32,19 +32,19 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.time > (getKeyTime + getKeyIntervalTime)) //とりあえず上下左右移動を、同じ処理下で（分けない）
         {
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.W))
             {
                 MoveUp();
             }
-            else if (Input.GetKey(KeyCode.DownArrow))
+            else if (Input.GetKey(KeyCode.S))
             {
                 MoveDown();
             }
-            else if (Input.GetKey(KeyCode.LeftArrow))
+            else if (Input.GetKey(KeyCode.A))
             {
                 MoveLeft();
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (Input.GetKey(KeyCode.D))
             {
                 MoveRight();
             }
