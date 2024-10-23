@@ -4,31 +4,56 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    private EnemyModel enemyModel;
-    private EnemyView enemyView;
-    private int moveSpeed = 1; // 整数単位での移動速度
+    [SerializeField]
+    private GameObject bulletPrefab;
+    private float fireInterval = 0.2f;
+    private float moveSpeed = 5;
 
-    void Start()
+    GameManager gameManager;
+
+    //敵の発射間隔用のタイマー
+    
+    float fireTimer;
+
+
+    public void Start()
     {
-        enemyModel = new EnemyModel(100, new Vector2Int(0, 5));
-        enemyView = GetComponent<EnemyView>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()
     {
-        MoveEnemy();
-        UpdateView();
+        MoveEnemy(Time.deltaTime);
+
+        fireTimer -= Time.deltaTime;
+
+        if (fireTimer <= 0)
+        {
+            FireBullet();
+            fireTimer = fireInterval;
+        }
+
+        if (IsOffScreen(transform.position))
+        {
+            Destroy(gameObject);
+        }
     }
 
-    void MoveEnemy()
+    //敵の移動処理
+    void MoveEnemy(float time)
     {
-        // 整数単位での移動処理
-        enemyModel.Position += new Vector2Int(0, -moveSpeed);
+        transform.Translate(Vector3.down * moveSpeed * time);
     }
 
-    void UpdateView()
+    //プレイヤー方向に一直線に進む弾の発射
+    void FireBullet()
     {
-        // モデルの位置をビューに反映
-        enemyView.UpdatePosition(enemyModel.Position);
+        gameManager.enemyBulletManager.FireBullet(transform.position, gameManager.player);
+    }
+
+    //枠外かどうかの判定
+    bool IsOffScreen(Vector2 position)
+    {
+        return position.x < -23 || position.x > 23 || position.y < -11;
     }
 }
