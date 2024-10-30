@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField]
     private GameObject bulletPrefab;
-    private float fireInterval = 0.2f;
+    private float fireInterval = 0.4f;
     private float moveSpeed = 5;
 
     GameManager gameManager;

@@ -97,5 +97,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb28df611970d44ba40e85d1913b131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circleEnemyDestroyParticle: {fileID: 2804856348805407380, guid: 25c823beab72ee0428ac9320389dce04, type: 3}
   bulletController: {fileID: 0}
-  enemies: []

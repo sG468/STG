@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public PlayerController player;
     public EnemyBulletManager enemyBulletManager;
 
+    CircleEnemyController circleEnemyController;
+
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject CircleEnemyPrefab;
     [SerializeField] private GameObject gameOverUI;
@@ -26,13 +28,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform spawnCircleEnemyPoint;
     [SerializeField] private float spawnInterval = 0.1f;
     [SerializeField] private GameObject redOutWindow;
+    [SerializeField] GameObject circleEnemyDestroyParticle;
 
     GameObject cameraObj;
 
     int HP = 200;
     int maxHP = 200;
     int Score = 0;
-    int border = 400;
+    int border = 600;
     int flag = 0;
 
     int circleEnemyHP = 10;
@@ -98,8 +101,10 @@ public class GameManager : MonoBehaviour
             }
             else if (enemyType == EnemyType.circle)
             {
-                if (circleEnemyHP <= 0)
+                if ((circleEnemyHP <= 0) && !isClear) 
                 {
+                    GameObject obj = Instantiate(circleEnemyDestroyParticle);
+                    obj.transform.position = circleEnemy.gameObject.transform.position;
                     Destroy(circleEnemy);
                     Clear();
                     isClear = true;
@@ -177,6 +182,7 @@ public class GameManager : MonoBehaviour
         if (!isGameOver)
         {
             circleEnemy = Instantiate(CircleEnemyPrefab, spawnCircleEnemyPoint.position, Quaternion.identity);
+            circleEnemyController = circleEnemy.GetComponent<CircleEnemyController>();
         }
     }
 
@@ -259,6 +265,7 @@ public class GameManager : MonoBehaviour
     {
         circleEnemyHP -= damage;
         sliderCircleEnemyHP.value = circleEnemyHP;
+        circleEnemyController.TakeDamageCircleEnemy();
     }
 
     //スコアUIを更新する

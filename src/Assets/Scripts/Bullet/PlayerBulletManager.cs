@@ -54,7 +54,15 @@ public class PlayerBulletManager : MonoBehaviour
     private void HandleBulletHit(PlayerBulletController bullet) 
     {
         Debug.Log("Œ‚’Ä");
-        gameManager.UpdateScoreText(100);
+        if (gameManager.EnemyTypeReference() == GameManager.EnemyType.normal)
+        {
+            gameManager.UpdateScoreText(100);
+        }
+        else
+        {
+
+        }
+
         DeactiveBullet(bullet);
     }
 

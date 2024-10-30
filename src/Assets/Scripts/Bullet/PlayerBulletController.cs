@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerBulletController : MonoBehaviour
 {
     public System.Action<PlayerBulletController> OnPlayerBulletHit;
+    [SerializeField] GameObject circleEnemyDestroyParticle;
 
     public PlayerBulletController bulletController;
     List<EnemyController> enemies;
@@ -101,6 +102,8 @@ public class PlayerBulletController : MonoBehaviour
         if (enemy != null)
         {
             enemies.Remove(enemy);
+            var obj = Instantiate(circleEnemyDestroyParticle);
+            obj.transform.position = enemy.gameObject.transform.position;
             Destroy(enemy.gameObject);
             OnPlayerBulletHit?.Invoke(bulletController); //コールバック
             gameObject.SetActive(false);
